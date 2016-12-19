@@ -5,8 +5,11 @@ process.on('uncaughtException', (err) => {
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
+const apiRoutes = require('./app/routes/api_routes');
 
 // DB Setup
 const url = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/mongoose-experiments';
@@ -22,9 +25,14 @@ db.once('open', () => {
 
 // App Setup
 app.use(morgan('combined'));
+app.use(express.static(path.resolve(__dirname, "public")));
+app.use(bodyParser.json({ type: '*/*' }));
 
-app.get('/', (req, res) => {
-  res.json({ message: 'test' });
+// Routes
+app.use('/api', apiRoutes);
+
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 const port = process.env.PORT || 8080;
