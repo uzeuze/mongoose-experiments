@@ -15,7 +15,11 @@ class Users extends Component {
 
   renderUser(user) {
     return (
-      <li key={user.email}>{user.email}</li>
+      <tr key={user.email}>
+        <td><Link to={`/users/${user._id}`}>{user.email}</Link></td>
+        <td>Edit</td>
+        <td>Delete</td>
+      </tr>
     );
   }
 
@@ -25,11 +29,19 @@ class Users extends Component {
     }
     return (
       <div>
-        <h2>Users</h2>
-        <Link to='/new-user'>New User</Link>
-        <ul>
+      <h2>Users</h2>
+      <Link to='/new-user'>New User</Link>
+       <table>
+        <thead>
+          <tr>
+            <th>User Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
           {this.props.users.map(this.renderUser)}
-        </ul>
+        </tbody>
+       </table>
       </div>
     );
   }

@@ -45,4 +45,12 @@ usersController.getUsers = (req, res) => {
   });
 };
 
+usersController.getUser = (req, res) => {
+  let userId = req.params.userId;
+  User.findOne({ _id: userId }, (err, doc) => {
+    if(err) { return next(err); }
+    res.json(doc);
+  });
+}
+
 module.exports = usersController;

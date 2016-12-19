@@ -8,6 +8,7 @@ import reduxThunk from 'redux-thunk';
 import App from './app/components/app';
 import Welcome from './app/components/welcome';
 import Users from './app/components/users';
+import User from './app/components/user';
 import NewUser from './app/components/new_user';
 import reducers from './app/reducers';
 
@@ -21,6 +22,7 @@ render(
         <IndexRoute component={Welcome} />
         <Route path='/users' component={Users} />
         <Route path='/new-user' component={NewUser} />
+        <Route path='/users/:userId' component={User} />
       </Route>
     </Router>
   </Provider>,
