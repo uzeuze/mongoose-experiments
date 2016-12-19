@@ -53,4 +53,12 @@ usersController.getUser = (req, res) => {
   });
 }
 
+usersController.deleteUser = (req, res) => {
+  let userId = req.params.userId;
+  User.remove({ _id: userId }, (err) => {
+    if(err) { return next(err) }
+    return res.json({ message: 'User deleted'});
+  });
+}
+
 module.exports = usersController;
