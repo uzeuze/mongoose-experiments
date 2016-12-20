@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import * as actions from '../actions';
 
 class User extends Component {
@@ -21,6 +22,7 @@ class User extends Component {
         <h4>User Name: {user.name}</h4>
         <p>User Email: {user.email}</p>
         <p>isAdmin: {user.isAdmin ? "Yes" : "No" }</p>
+        <Link to={`/users/${this.props.params.userId}/boards/new`}>Add Board</Link>
       </div>
     );
   }

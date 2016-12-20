@@ -1,5 +1,6 @@
 const usersController = {};
 const User = require('../models/user');
+const Board = require('../models/board');
 
 usersController.createUser = (req, res) => {
   let name = req.body.name;
@@ -40,7 +41,7 @@ usersController.getUsers = (req, res) => {
     if(docs && docs.length) {
       res.json(docs);
     } else {
-      // returns empty array 
+      // returns empty array
       res.json(docs);
     }
   });
@@ -92,6 +93,30 @@ usersController.updateUser = (req, res) => {
       });
     });
   });
+}
+
+usersController.createBoard = (req, res) => {
+  let userId = req.params.userId;
+  let boardName = req.body.name;
+  if(!boardName){
+    return res.status(422).json({ error: 'You must provide name'});
+  }
+  User.findOne({ _id: userId }, (err, doc) => {
+    if(err) { return next(err); }
+    let board = new Board({
+      name: boardName
+    });
+    board.users.push(doc);
+    doc.boards.push(board);
+    doc.save((err, user) => {
+      if(err) { return next(err); }
+      board.save((err) => {
+        if(err) { return next(err); }
+        res.json(user);
+      });
+    });
+  });
+
 }
 
 module.exports = usersController;
