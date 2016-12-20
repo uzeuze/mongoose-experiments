@@ -11,6 +11,7 @@ import Users from './app/components/users';
 import User from './app/components/user';
 import NewUser from './app/components/new_user';
 import EditUser from './app/components/edit_user';
+import Board from './app/components/board';
 import NewBoard from './app/components/new_board';
 import reducers from './app/reducers';
 
@@ -27,6 +28,7 @@ render(
         <Route path='/users/:userId' component={User} />
         <Route path='/users/:userId/edit' component={EditUser} />
         <Route path='/users/:userId/boards/new' component={NewBoard} />
+        <Route path='/boards/:boardId' component={Board} />
       </Route>
     </Router>
   </Provider>,

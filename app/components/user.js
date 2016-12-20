@@ -20,7 +20,7 @@ class User extends Component {
   renderBoard(board, i) {
     return (
       <div key={i}>
-        <h5>{board.name}</h5>
+        <Link to={`/boards/${board._id}`}>{board.name}</Link>
       </div>
     );
   }
@@ -31,6 +31,9 @@ class User extends Component {
     } else if(this.props.user.boards.length <= 0) {
       return (
         <div>
+          <h4>User Name: {this.props.user.name}</h4>
+          <p>User Email: {this.props.user.email}</p>
+          <p>isAdmin: {this.props.user.isAdmin ? "Yes" : "No" }</p>
           <h4>User does not have any board.</h4>
           <Link to={`/users/${this.props.params.userId}/boards/new`}>Add a Board</Link>
         </div>

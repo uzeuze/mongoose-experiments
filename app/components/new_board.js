@@ -8,7 +8,7 @@ class NewBoard extends Component {
   handleFormSubmit(formProps) {
     axios.post(`http://localhost:8080/api/users/${this.props.params.userId}/boards`, formProps)
       .then(response => {
-        browserHistory.push(`/users/${response.data._id}`);
+        browserHistory.push(`/boards/${response.data._id}`);
       });
   }
 

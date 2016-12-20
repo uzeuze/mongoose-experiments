@@ -78,7 +78,7 @@ usersController.updateUser = (req, res) => {
     if(err) { return next(err); }
 
     // if a user exists return error
-    if(existingUser) {
+    if(existingUser && existingUser._id != userId) {
       return res.status(422).json({ error: 'Email is in use' });
     }
 
@@ -123,7 +123,7 @@ usersController.createBoard = (req, res) => {
       if(err) { return next(err); }
       board.save((err) => {
         if(err) { return next(err); }
-        res.json(user);
+        res.json(board);
       });
     });
   });
