@@ -10,6 +10,7 @@ import Welcome from './app/components/welcome';
 import Users from './app/components/users';
 import User from './app/components/user';
 import NewUser from './app/components/new_user';
+import EditUser from './app/components/edit_user';
 import reducers from './app/reducers';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
@@ -23,6 +24,7 @@ render(
         <Route path='/users' component={Users} />
         <Route path='/new-user' component={NewUser} />
         <Route path='/users/:userId' component={User} />
+        <Route path='/users/:userId/edit' component={EditUser} />
       </Route>
     </Router>
   </Provider>,

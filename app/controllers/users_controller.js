@@ -61,4 +61,36 @@ usersController.deleteUser = (req, res) => {
   });
 }
 
+usersController.updateUser = (req, res) => {
+  let userId = req.params.userId;
+  let name = req.body.name;
+  let email = req.body.email;
+  let isAdmin = req.body.isAdmin;
+
+  if(!email || !name) {
+    // Unprocessable Entity if email or name not given
+    return res.status(422).json({ error: 'You must provide name and email'});
+  }
+
+  User.findOne({email: email}, (err, existingUser) => {
+    if(err) { return next(err); }
+
+    // if a user exists return error
+    if(existingUser) {
+      return res.status(422).json({ error: 'Email is in use' });
+    }
+
+    User.findOne({ _id: userId }, (err, doc) => {
+      if(err) { return next(err); }
+      doc.name = name;
+      doc.email = email;
+      doc.isAdmin = isAdmin;
+      doc.save(function (err, updatedDoc) {
+        if (err) { return next(err); }
+        res.json(updatedDoc);
+      });
+    });    
+  });
+}
+
 module.exports = usersController;

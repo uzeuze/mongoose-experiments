@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {
   FETCH_USERS,
-  FETCH_USER
+  FETCH_USER,
+  CLEAR_USER
 } from './types';
 
 const API_URL = "http://localhost:8080/api";
@@ -27,5 +28,13 @@ export function fetchUser(userId) {
           payload: response.data
         });
       });
+  }
+}
+
+export function clearUser() {
+  return function(dispatch) {
+    dispatch({
+      type: CLEAR_USER
+    });
   }
 }

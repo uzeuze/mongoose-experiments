@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import axios from 'axios';
 import  { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-class NewUser extends Component {
+class EditUser extends Component {
+
+  componentWillMount() {
+    this.props.fetchUser(this.props.params.userId);
+  }
+
+  componentWillUnmount() {
+    this.props.clearUser();
+  }
 
   handleFormSubmit(formProps) {
-    axios.post('http://localhost:8080/api/users', formProps)
+    axios.put(`http://localhost:8080/api/users/${this.props.params.userId}`, formProps)
       .then(response => {
         browserHistory.push(`/users/${response.data._id}`);
       });
@@ -35,13 +45,20 @@ class NewUser extends Component {
           </div>
         </div>
         <div>
-          <button type="submit">CREATE USER</button>
+          <button type="submit">UPDATE USER</button>
         </div>
       </form>
     );
   }
 }
 
-export default reduxForm({
-  form: 'newUser'
-})(NewUser);
+function mapStateToProps(state) {
+  return {
+    initialValues: state.user.displayedUser
+  }
+}
+
+export default connect(mapStateToProps, actions)(reduxForm({
+  form: 'editUser',
+  enableReinitialize: true
+})(EditUser));

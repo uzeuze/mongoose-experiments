@@ -25,7 +25,7 @@ class Users extends Component {
     return (
       <tr key={user.email}>
         <td><Link to={`/users/${user._id}`}>{user.email}</Link></td>
-        <td>Edit</td>
+        <td><Link to={`/users/${user._id}/edit`}>Edit</Link></td>
         <td><a onClick={this.handleDelete.bind(this, user._id)}>Delete</a></td>
       </tr>
     );

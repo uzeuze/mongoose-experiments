@@ -6,6 +6,11 @@ class User extends Component {
   componentWillMount() {
     this.props.fetchUser(this.props.params.userId);
   }
+
+  componentWillUnmount() {
+    this.props.clearUser();
+  }
+
   render() {
     if(!this.props.user) {
       return <div>Loading...</div>;
