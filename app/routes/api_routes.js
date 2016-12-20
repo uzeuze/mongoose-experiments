@@ -15,5 +15,6 @@ router.post('/users/:userId/boards', usersController.createBoard);
 // Board
 router.get('/boards', boardsController.getBoards);
 router.get('/boards/:boardId', boardsController.getBoard);
+router.post('/boards/:boardId/users', boardsController.assignUserToBoard);
 
 module.exports = router;
