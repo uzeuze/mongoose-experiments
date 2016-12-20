@@ -34,7 +34,15 @@ class Users extends Component {
   render() {
     if(!this.props.users) {
       return <div>Loading...</div>
+    } else if(this.props.users.length <= 0) {
+      return (
+        <div>
+          <h3>There isn't any user.</h3>
+          <Link to='/new-user'>Create a User</Link>
+        </div>
+      );
     }
+
     return (
       <div>
       <h2>Users</h2>

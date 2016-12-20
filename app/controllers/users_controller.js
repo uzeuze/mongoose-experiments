@@ -40,7 +40,8 @@ usersController.getUsers = (req, res) => {
     if(docs && docs.length) {
       res.json(docs);
     } else {
-      res.status(404).json({ error: 'No Users'});
+      // returns empty array 
+      res.json(docs);
     }
   });
 };
@@ -89,7 +90,7 @@ usersController.updateUser = (req, res) => {
         if (err) { return next(err); }
         res.json(updatedDoc);
       });
-    });    
+    });
   });
 }
 
