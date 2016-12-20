@@ -95,6 +95,17 @@ usersController.updateUser = (req, res) => {
   });
 }
 
+usersController.getUserBoards = (req, res) => {
+  let userId = req.params.userId;
+  User
+    .findOne({ _id: userId })
+    .populate('boards')
+    .exec((err, user) => {
+      if(err) { return next(err); }
+      res.json(user);
+    });
+}
+
 usersController.createBoard = (req, res) => {
   let userId = req.params.userId;
   let boardName = req.body.name;

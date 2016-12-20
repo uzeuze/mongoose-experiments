@@ -21,7 +21,7 @@ export function fetchUsers() {
 
 export function fetchUser(userId) {
   return function(dispatch) {
-    axios.get(`${API_URL}/users/${userId}`)
+    axios.get(`${API_URL}/users/${userId}/boards`)
       .then(response => {
         dispatch({
           type: FETCH_USER,

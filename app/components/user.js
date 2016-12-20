@@ -4,6 +4,11 @@ import { Link } from 'react-router';
 import * as actions from '../actions';
 
 class User extends Component {
+  constructor() {
+    super();
+    this.renderBoard = this.renderBoard.bind(this);
+  }
+
   componentWillMount() {
     this.props.fetchUser(this.props.params.userId);
   }
@@ -12,10 +17,26 @@ class User extends Component {
     this.props.clearUser();
   }
 
+  renderBoard(board, i) {
+    return (
+      <div key={i}>
+        <h5>{board.name}</h5>
+      </div>
+    );
+  }
+
   render() {
-    if(!this.props.user) {
+    if(!this.props.user || !this.props.user.boards) {
       return <div>Loading...</div>;
+    } else if(this.props.user.boards.length <= 0) {
+      return (
+        <div>
+          <h4>User does not have any board.</h4>
+          <Link to={`/users/${this.props.params.userId}/boards/new`}>Add a Board</Link>
+        </div>
+      );
     }
+
     const user = this.props.user;
     return (
       <div>
@@ -23,6 +44,10 @@ class User extends Component {
         <p>User Email: {user.email}</p>
         <p>isAdmin: {user.isAdmin ? "Yes" : "No" }</p>
         <Link to={`/users/${this.props.params.userId}/boards/new`}>Add Board</Link>
+        <div>
+          <h3>Users Boards</h3>
+          {user.boards.map(this.renderBoard)}
+        </div>
       </div>
     );
   }
